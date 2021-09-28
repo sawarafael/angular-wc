@@ -3,5 +3,106 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "sig-components": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/sig-components",
+      "sourceRoot": "projects/sig-components/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/sig-components",
+            "index": "projects/sig-components/src/index.html",
+            "main": "projects/sig-components/src/main.ts",
+            "polyfills": "projects/sig-components/src/polyfills.ts",
+            "tsConfig": "projects/sig-components/tsconfig.app.json",
+            "assets": [
+              "projects/sig-components/src/favicon.ico",
+              "projects/sig-components/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/sig-components/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/sig-components/src/environments/environment.ts",
+                  "with": "projects/sig-components/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "sig-components:build:production"
+            },
+            "development": {
+              "browserTarget": "sig-components:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sig-components:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sig-components/src/test.ts",
+            "polyfills": "projects/sig-components/src/polyfills.ts",
+            "tsConfig": "projects/sig-components/tsconfig.spec.json",
+            "karmaConfig": "projects/sig-components/karma.conf.js",
+            "assets": [
+              "projects/sig-components/src/favicon.ico",
+              "projects/sig-components/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/sig-components/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "sig-components"
 }
